@@ -22,9 +22,11 @@ public class Main {
         }
 
         CookieService cookieService = new CookieService();
-        
+
         try {
-            cookieService.readFile(file);
+            for (String cookie : cookieService.findMostActiveCookies(file, date)) {
+                System.out.println(cookie);
+            }
         } catch (RuntimeException e) {
             System.err.println(e.getMessage());
             System.exit(1);
