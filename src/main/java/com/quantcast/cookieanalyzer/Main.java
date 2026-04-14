@@ -21,8 +21,14 @@ public class Main {
             System.exit(1);
         }
 
-        System.out.println("File: " + file);
-        System.out.println("Date: " + date);
+        CookieService cookieService = new CookieService();
+        
+        try {
+            cookieService.readFile(file);
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
 
     }
 
