@@ -6,8 +6,8 @@ Command-line program to find the most active cookie(s) for a given day.
 
 ## Requirements
 
-- Java 21
-- Maven
+- Java 21 installed
+- Maven installed
 
 ---
 
