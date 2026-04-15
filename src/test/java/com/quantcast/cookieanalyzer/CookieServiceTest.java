@@ -25,16 +25,60 @@ public class CookieServiceTest {
     void shouldReturnMostActiveCookie() {
         CookieService service = new CookieService();
 
-        // load file from test resources
-        URL resource = getClass().getClassLoader().getResource("cookie_log.csv");
-        assertNotNull(resource);
-
         String filePath = getResourcePath("cookie_log.csv");
 
         List<String> result = service.findMostActiveCookies(filePath, "2018-12-09");
 
         assertEquals(1, result.size());
         assertEquals("AtY0laUfhglK3lC7", result.get(0));
+    }
+
+    @Test
+    void shouldReturnMultipleCookiesWhenTie() {
+        CookieService service = new CookieService();
+
+        String filePath = getResourcePath("tie_cookie_log.csv");
+
+        List<String> result = service.findMostActiveCookies(filePath, "2018-12-09");
+
+        assertEquals(2, result.size());
+        assertTrue(result.contains("A"));
+        assertTrue(result.contains("B"));
+    }
+
+    @Test
+    void shouldReturnEmptyListWhenNoCookiesForDate() {
+        CookieService service = new CookieService();
+
+        String filePath = getResourcePath("cookie_log.csv");
+
+        List<String> result = service.findMostActiveCookies(filePath, "2018-12-10");
+
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void shouldThrowExceptionForInvalidCsvRow() {
+        CookieService service = new CookieService();
+
+        String filePath = getResourcePath("invalid_cookie_log.csv");
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> 
+            service.findMostActiveCookies(filePath, "2018-12-09")
+        );
+
+        assertTrue(exception.getMessage().contains("Invalid CSV row"));
+    }
+
+    @Test
+    void shouldThrowExceptionForMissingFile() {
+        CookieService service = new CookieService();
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> 
+            service.findMostActiveCookies("non_existent_file.csv", "2018-12-09")
+        );
+
+        assertTrue(exception.getMessage().contains("Error reading file"));
     }
 
 }

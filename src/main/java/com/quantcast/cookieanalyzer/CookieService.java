@@ -24,7 +24,7 @@ public class CookieService {
                 }
 
                 String[] parts = line.split(",");
-                if (parts.length != 2) {
+                if (parts.length != 2 || parts[0].isBlank() || parts[1].isBlank() || parts[1].length() < 10) {
                     throw new RuntimeException("Invalid CSV row: " + line);
                 }
 
