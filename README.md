@@ -45,7 +45,7 @@ If multiple cookies have the same highest frequency, all are printed on separate
 ## Assumptions
 
 - Input file is sorted in descending order by timestamp
-- - Timestamp format follows ISO 8601 (e.g. 2018-12-09T14:19:00+00:00)
+- Timestamp format follows ISO 8601 (e.g. 2018-12-09T14:19:00+00:00)
 - Input is in UTC
 - Entire file fits in memory
 
